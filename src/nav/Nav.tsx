@@ -16,8 +16,8 @@ library.add(faBars, faFacebook, faTwitter);
 interface NavInterface {
 	toggleMenu: boolean;
 	width: number;
-	// handleDropdown(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
-	// handleSubItems(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
+	handleDropdown(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
+	handleSubItems(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
 	menuItems: MenuItemState[];
 }
 
