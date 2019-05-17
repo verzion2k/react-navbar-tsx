@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, MouseEvent } from 'react';
 import './scss/MenuItem.scss';
 import Icon from '../icon/Icon';
 import Input from '../input/Input';
@@ -27,7 +27,13 @@ interface SubItemProps {
 	name: string;
 }
 
-export default class MenuItem extends Component<MenuItemInterface> {
+interface ContextInterface {
+	handleDropdown(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
+	handleSubItems(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
+	width: number;
+}
+
+export default class MenuItem extends Component<MenuItemInterface, ContextInterface> {
 	render() {
 		const { isDropdown, isAuth, name, dropdownItems, login, id, selected } = this.props;
 		const { handleDropdown, handleSubItems, width } = this.context;

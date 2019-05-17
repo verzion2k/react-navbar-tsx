@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, MouseEvent } from 'react';
 import './scss/Nav.scss';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,8 +16,8 @@ library.add(faBars, faFacebook, faTwitter);
 interface NavInterface {
 	toggleMenu: boolean;
 	width: number;
-	handleDropdown(e: any): void;
-	handleSubItems(e: any): void;
+	// handleDropdown(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
+	// handleSubItems(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
 	menuItems: MenuItemState[];
 }
 
@@ -289,7 +289,7 @@ export default class Nav extends Component<{}, NavInterface> {
 		this.setState({ width: window.innerWidth });
 	};
 
-	handleDropdown = (e) => {
+	handleDropdown = (e: MouseEvent<HTMLLIElement | HTMLAnchorElement>) => {
 		e.preventDefault();
 
 		const items = [ ...this.state.menuItems ];
@@ -317,7 +317,7 @@ export default class Nav extends Component<{}, NavInterface> {
 		});
 	};
 
-	handleSubItems = (e) => {
+	handleSubItems = (e: MouseEvent<HTMLLIElement | HTMLAnchorElement>) => {
 		e.preventDefault();
 
 		const subItems = [ ...this.state.menuItems ];
