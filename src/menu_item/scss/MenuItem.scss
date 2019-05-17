@@ -1,0 +1,127 @@
+.menu__item {
+	position: relative;
+	width: 100%;
+	text-align: center;
+	list-style-type: none;
+	&:after {
+		position: relative;
+		content: '';
+		height: 2px;
+		width: 90%;
+		background-color: #b6ada4;
+		display: block;
+		margin: 0 auto;
+	}
+	&__auth {
+		background-color: #b6ada4;
+	}
+	&__auth--active {
+		background-color: #6f6156;
+	}
+	&__dropdown {
+		color: #fff;
+		text-decoration: none;
+		font-weight: 400;
+		padding: 10px;
+		list-style-type: none;
+	}
+	&__dropdown--active {
+		color: #fff;
+		padding: 10px;
+		background-color: #51463d;
+		list-style-type: none;
+	}
+	&--active {
+		position: relative;
+		width: 100%;
+		text-align: center;
+		background-color: #6f6156;
+	}
+	&__sub {
+		color: #fff;
+		text-decoration: none;
+		font-size: 13px;
+		font-weight: 400;
+		margin: 20px;
+	}
+	&__sub--wrapper {
+		list-style-type: none;
+	}
+	&__wrapper {
+		padding: 10px;
+	}
+	&__wrapper--auth {
+		padding: 10px;
+	}
+	&:last-child:after {
+		display: none;
+	}
+}
+
+@media (min-width: 1024px) {
+	.menu__item {
+		width: auto;
+		display: inline-block;
+		&--active {
+			background-color: #fff;
+		}
+		&:after {
+			display: none;
+		}
+		&__auth,
+		&__auth--active {
+			position: initial;
+			background-color: transparent;
+		}
+		&__wrapper:after {
+			content: "";
+			display: inline-block;
+			height: 14px;
+			width: 2px;
+			background-color: #333333;
+			opacity: 0.6;
+			position: relative;
+			left: 8px;
+			top: 3px;
+			z-index: 1;
+		}
+		&:last-of-type &__wrapper:after {
+			display: none;
+		}
+		&--active &__list {
+			width: max-content;
+		}
+		&__auth--active &__list {
+			width: 100%;
+		}
+		&--active &__list,
+		&__auth--active &__list {
+			position: absolute;
+			left: 0;
+			text-align: left;
+			background-color: #fff;
+			z-index: 99;
+			box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+		}
+		&--active &__list:first-child,
+		&__auth--active &__list:first-child {
+			left: 22%;
+		}
+		&__sub--wrapper {
+			position: absolute;
+			left: 100%;
+			top: 0%;
+			background-color: rgb(237, 237, 237);
+			list-style-type: none;
+			box-shadow: 0 10px 12px -6px rgba(0, 0, 0, .175);
+		}
+		&__sub {
+			cursor: pointer;
+			color: #000;
+		}
+		&__dropdown--active {
+			background-color: rgb(237, 237, 237);
+			position: relative;
+		}
+	}
+}

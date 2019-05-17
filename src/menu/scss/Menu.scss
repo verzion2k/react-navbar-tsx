@@ -1,0 +1,56 @@
+.menu {
+	&__link {
+		color: #fff;
+		text-decoration: none;
+		font-size: 13px;
+		font-weight: 400;
+		cursor: pointer;
+	}
+
+	&__icon {
+		padding-left: 5px;
+		font-size: 20px;
+		color: #fff;
+		vertical-align: middle;
+	}
+	&__auth--login,
+	&__auth--register {
+		cursor: pointer;
+		color: #543d2e;
+		font-size: 20px;
+	}
+	&__auth--register {
+		margin-left: 10px;
+	}
+}
+
+@media (min-width: 1024px) {
+	.menu {
+		float: left;
+		&__auth {
+			float: right;
+		}
+		&__auth div {
+			position: relative;
+		}
+		&__link {
+			font-size: 12px;
+			color: #000;
+		}
+		&__icon {
+			color: #000;
+		}
+	}
+}
+
+@media (min-width: 1200px) {
+	.menu {
+		padding-left: 5px;
+		&__link {
+			font-size: 13px;
+		}
+		&__wrapper {
+			width: 100%;
+		}
+	}
+}
