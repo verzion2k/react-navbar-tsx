@@ -6,22 +6,19 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import Menu from '../menu/Menu';
 import { MenuContext } from '../menu_context/MenuContext';
-import styled, { keyframes } from 'styled-components';
-import { bounceInDown } from 'react-animations';
-
-const FadeInAnimation = styled.div`animation: 1s ${keyframes`${bounceInDown}`};`;
 
 library.add(faBars, faFacebook, faTwitter);
 
-interface NavInterface {
+type NavProps = {};
+type NavState = {
 	toggleMenu: boolean;
 	width: number;
-	handleDropdown(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
-	handleSubItems(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
+	handleDropdown: (e: MouseEvent<Element>) => any;
+	handleSubItems: (e: MouseEvent<Element>) => any;
 	menuItems: MenuItemState[];
-}
+};
 
-interface MenuItemState {
+type MenuItemState = {
 	id: string;
 	name: string;
 	isDropdown?: boolean;
@@ -29,23 +26,23 @@ interface MenuItemState {
 	login?: boolean;
 	selected: boolean;
 	dropdownItems?: DropdownItemState[];
-}
+};
 
-interface DropdownItemState {
+type DropdownItemState = {
 	id: string;
 	name: string;
 	selected: boolean;
 	isDropdown: boolean;
 	subItems?: SubItemState[];
-}
+};
 
-interface SubItemState {
+type SubItemState = {
 	id: string;
 	name: string;
-}
+};
 
-export default class Nav extends Component<{}, NavInterface> {
-	constructor(props: NavInterface) {
+export default class Nav extends Component<NavProps, NavState> {
+	constructor(props: NavProps) {
 		super(props);
 
 		this.state = {
@@ -289,7 +286,7 @@ export default class Nav extends Component<{}, NavInterface> {
 		this.setState({ width: window.innerWidth });
 	};
 
-	handleDropdown = (e: MouseEvent<HTMLLIElement | HTMLAnchorElement>) => {
+	handleDropdown = (e: MouseEvent<Element>) => {
 		e.preventDefault();
 
 		const items = [ ...this.state.menuItems ];
@@ -317,7 +314,7 @@ export default class Nav extends Component<{}, NavInterface> {
 		});
 	};
 
-	handleSubItems = (e: MouseEvent<HTMLLIElement | HTMLAnchorElement>) => {
+	handleSubItems = (e: MouseEvent<Element>) => {
 		e.preventDefault();
 
 		const subItems = [ ...this.state.menuItems ];
@@ -377,11 +374,9 @@ export default class Nav extends Component<{}, NavInterface> {
 						</header>
 						{toggleMenu &&
 						isMobile && (
-							<FadeInAnimation>
-								<div className="nav__menu">
-									<Menu menuItems={this.state.menuItems} />
-								</div>
-							</FadeInAnimation>
+							<div className="nav__menu">
+								<Menu menuItems={this.state.menuItems} />
+							</div>
 						)}
 					</main>
 				) : (

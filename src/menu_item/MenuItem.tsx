@@ -5,11 +5,11 @@ import Input from '../input/Input';
 import MenuContext from '../menu_context/MenuContext';
 
 interface MenuItemInterface {
-	isDropdown: boolean;
-	isAuth: boolean;
+	isDropdown?: boolean;
+	isAuth?: boolean;
 	name: string;
-	dropdownItems: DropdownItemProps[];
-	login: boolean;
+	dropdownItems?: DropdownItemProps[];
+	login?: boolean;
 	id: string;
 	selected: boolean;
 }
@@ -28,9 +28,16 @@ interface SubItemProps {
 }
 
 interface ContextInterface {
-	handleDropdown(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
-	handleSubItems(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
+	handleDropdown: (e: MouseEvent<Element>) => any;
+	handleSubItems: (e: MouseEvent<Element>) => any;
 	width: number;
+}
+
+declare module 'react' {
+	interface HTMLAttributes<T> extends DOMAttributes<T> {
+		selected?: boolean;
+		login?: boolean;
+	}
 }
 
 export default class MenuItem extends Component<MenuItemInterface, ContextInterface> {
@@ -69,9 +76,9 @@ export default class MenuItem extends Component<MenuItemInterface, ContextInterf
 					{isDropdown && <Icon />}
 				</div>
 				<ul className="menu__item__list">
-					{isAuth && selected && <Input login={login} />}
+					{isAuth && selected && <Input login={login !== undefined} />}
 					{selected &&
-						isDropdown &&
+						dropdownItems !== undefined &&
 						dropdownItems.map((item) => {
 							return (
 								<li
@@ -94,9 +101,8 @@ export default class MenuItem extends Component<MenuItemInterface, ContextInterf
 										selected={item.selected}
 										id={item.id}
 									>
-										{' '}
-										{item.name}{' '}
-									</a>{' '}
+										{item.name}
+									</a>
 									{item.isDropdown && <Icon />}
 									{item.selected &&
 									item.isDropdown && (
@@ -105,8 +111,7 @@ export default class MenuItem extends Component<MenuItemInterface, ContextInterf
 												item.subItems.map((item) => {
 													return (
 														<li className="menu__item__sub" key={item.id}>
-															{' '}
-															{item.name}{' '}
+															{item.name}
 														</li>
 													);
 												})}

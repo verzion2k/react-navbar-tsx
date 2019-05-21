@@ -8,7 +8,33 @@ import MenuContext from '../menu_context/MenuContext';
 
 library.add(faUserTie);
 library.add(faPencilAlt);
-export default class Menu extends Component {
+
+type MenuProps = {
+	menuItems: MenuItemProps[];
+};
+
+type MenuItemProps = {
+	id: string;
+	name: string;
+	isDropdown?: boolean;
+	isAuth: boolean;
+	login?: boolean;
+	selected: boolean;
+	dropdownItems: DropdownItemProps[];
+};
+type DropdownItemProps = {
+	id: string;
+	name: string;
+	selected: boolean;
+	isDropdown: boolean;
+	subItems?: SubItemProps[];
+};
+
+type SubItemProps = {
+	id: string;
+	name: string;
+};
+export default class Menu extends Component<MenuProps> {
 	render() {
 		const { menuItems } = this.props;
 		const { width } = this.context;
@@ -32,7 +58,7 @@ export default class Menu extends Component {
 								id={item.id}
 								name={item.name}
 								selected={item.selected}
-								isDropdown={item.isDropdown}
+								isDropdown={item.isDropdown !== undefined}
 								dropdownItems={item.dropdownItems}
 							/>
 						);
@@ -57,7 +83,7 @@ export default class Menu extends Component {
 										id={item.id}
 										name={item.name}
 										isAuth={item.isAuth}
-										login={item.login}
+										login={item.login !== undefined}
 										selected={item.selected}
 									/>
 								</React.Fragment>
