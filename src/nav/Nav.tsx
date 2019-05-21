@@ -6,43 +6,21 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import Menu from '../menu/Menu';
 import { MenuContext } from '../menu_context/MenuContext';
+import { MenuInterface } from '../interface/interface';
 
 library.add(faBars, faFacebook, faTwitter);
 
-type NavProps = {};
-type NavState = {
+interface Props {}
+interface State {
 	toggleMenu: boolean;
 	width: number;
 	handleDropdown: (e: MouseEvent<Element>) => any;
 	handleSubItems: (e: MouseEvent<Element>) => any;
-	menuItems: MenuItemState[];
-};
+	menuItems: MenuInterface[];
+}
 
-type MenuItemState = {
-	id: string;
-	name: string;
-	isDropdown?: boolean;
-	isAuth: boolean;
-	login?: boolean;
-	selected: boolean;
-	dropdownItems?: DropdownItemState[];
-};
-
-type DropdownItemState = {
-	id: string;
-	name: string;
-	selected: boolean;
-	isDropdown: boolean;
-	subItems?: SubItemState[];
-};
-
-type SubItemState = {
-	id: string;
-	name: string;
-};
-
-export default class Nav extends Component<NavProps, NavState> {
-	constructor(props: NavProps) {
+export default class Nav extends Component<Props, State> {
+	constructor(props: Props) {
 		super(props);
 
 		this.state = {
