@@ -295,9 +295,9 @@ export default class Nav extends Component<Props, State> {
 	handleSubItems = (e: MouseEvent<Element>) => {
 		e.preventDefault();
 
-		const subItems = [ ...this.state.menuItems ];
+		const { menuItems } = this.state;
 		const subTargetKey = e.currentTarget.id;
-		const subArray = subItems.map((item) => item.dropdownItems && item.dropdownItems);
+		const subArray = menuItems.map((item) => item.dropdownItems && item.dropdownItems);
 
 		const subSelected = subArray.map((item) => {
 			if (item) {
