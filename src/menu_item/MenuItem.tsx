@@ -3,29 +3,7 @@ import './scss/MenuItem.scss';
 import Icon from '../icon/Icon';
 import Input from '../input/Input';
 import MenuContext from '../menu_context/MenuContext';
-
-interface MenuItemInterface {
-	isDropdown?: boolean;
-	isAuth?: boolean;
-	name: string;
-	dropdownItems?: DropdownItemProps[];
-	login?: boolean;
-	id: string;
-	selected: boolean;
-}
-
-interface DropdownItemProps {
-	id: string;
-	name: string;
-	selected: boolean;
-	isDropdown: boolean;
-	subItems?: SubItemProps[];
-}
-
-interface SubItemProps {
-	id: string;
-	name: string;
-}
+import { MenuInterface } from '../interface/interface';
 
 interface ContextInterface {
 	handleDropdown: (e: MouseEvent<Element>) => any;
@@ -40,7 +18,7 @@ declare module 'react' {
 	}
 }
 
-export default class MenuItem extends Component<MenuItemInterface, ContextInterface> {
+export default class MenuItem extends Component<MenuInterface, ContextInterface> {
 	render() {
 		const { isDropdown, isAuth, name, dropdownItems, login, id, selected } = this.props;
 		const { handleDropdown, handleSubItems, width } = this.context;
@@ -66,7 +44,6 @@ export default class MenuItem extends Component<MenuItemInterface, ContextInterf
 			>
 				<div className={isAuth ? 'menu__item__wrapper--auth' : 'menu__item__wrapper'}>
 					<a
-						href="/"
 						className="menu__link"
 						onClick={!isMobile && isAuth ? handleDropdown : isMobile ? handleDropdown : undefined}
 						id={id}
@@ -97,7 +74,6 @@ export default class MenuItem extends Component<MenuItemInterface, ContextInterf
 									id={item.id}
 								>
 									<a
-										href="/"
 										className="menu__link"
 										onClick={item.isDropdown && isMobile ? handleSubItems : undefined}
 										selected={item.selected}

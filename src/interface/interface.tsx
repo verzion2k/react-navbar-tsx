@@ -2,7 +2,7 @@ export interface MenuInterface {
 	id: string;
 	name: string;
 	isDropdown?: boolean;
-	isAuth: boolean;
+	isAuth?: boolean;
 	login?: boolean;
 	selected: boolean;
 	dropdownItems?: DropdownItem[];

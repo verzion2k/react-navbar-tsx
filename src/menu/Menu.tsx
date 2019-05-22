@@ -39,6 +39,7 @@ export default class Menu extends Component<Props, ContextInterface> {
 								key={item.id}
 								id={item.id}
 								name={item.name}
+								isAuth={item.isAuth}
 								selected={item.selected}
 								isDropdown={item.isDropdown !== undefined}
 								dropdownItems={item.dropdownItems}

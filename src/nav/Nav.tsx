@@ -296,15 +296,13 @@ export default class Nav extends Component<Props, State> {
 		e.preventDefault();
 
 		const subItems = [ ...this.state.menuItems ];
-		const subTargetKey = e.currentTarget.id;
-		const subArray = subItems.map((item) => item.dropdownItems && item.dropdownItems);
-
-		const subSelected = subArray.filter((item) => !!item).map((data) => {
+		const { id }: { id: any } = e.currentTarget;
+		subItems.map((item) => item.dropdownItems && item.dropdownItems).filter((item) => !!item).map((data) => {
 			return data!.map((el) => {
-				if (el.id === subTargetKey && el.selected === true) {
-					return { ...el, selected: false };
-				} else if (el.id === subTargetKey && el.selected === false) {
-					return { ...el, selected: true };
+				if (el.id === id && el.selected === true) {
+					return (el.selected = false);
+				} else if (el.id === id && el.selected === false) {
+					return (el.selected = true);
 				}
 				return el;
 			});
@@ -313,8 +311,6 @@ export default class Nav extends Component<Props, State> {
 		this.setState({
 			menuItems: subItems
 		});
-
-		console.log(subSelected);
 	};
 
 	handleOnToggle = () => {
