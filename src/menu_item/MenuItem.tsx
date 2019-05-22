@@ -66,6 +66,7 @@ export default class MenuItem extends Component<MenuItemInterface, ContextInterf
 			>
 				<div className={isAuth ? 'menu__item__wrapper--auth' : 'menu__item__wrapper'}>
 					<a
+						href="/"
 						className="menu__link"
 						onClick={!isMobile && isAuth ? handleDropdown : isMobile ? handleDropdown : undefined}
 						id={id}
@@ -96,6 +97,7 @@ export default class MenuItem extends Component<MenuItemInterface, ContextInterf
 									id={item.id}
 								>
 									<a
+										href="/"
 										className="menu__link"
 										onClick={item.isDropdown && isMobile ? handleSubItems : undefined}
 										selected={item.selected}

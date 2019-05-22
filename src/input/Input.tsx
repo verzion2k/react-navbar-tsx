@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import InputItem from '../input_item/InputItem';
 import './scss/Input.scss';
 

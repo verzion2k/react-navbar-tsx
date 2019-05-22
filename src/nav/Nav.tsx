@@ -268,52 +268,53 @@ export default class Nav extends Component<Props, State> {
 		e.preventDefault();
 
 		const items = [ ...this.state.menuItems ];
-		const targetKey = e.currentTarget.id;
+		const { id }: { id: any } = e.currentTarget;
 		const selectedItems = items.filter((item) => item.selected === true);
 
-		if (items[targetKey].selected) {
-			items[targetKey].selected = false;
-		} else if (!items[targetKey].selected && selectedItems.length > 0) {
+		if (items[id].selected) {
+			items[id].selected = false;
+		} else if (!items[id].selected && selectedItems.length > 0) {
 			selectedItems.map((item) => {
-				if (item.isAuth === false) {
+				if (item.isAuth === false && item.dropdownItems) {
 					item.dropdownItems.map((subItem) => (subItem.selected = false));
-					item.selected = false;
+					return (item.selected = false);
 				} else {
-					item.selected = false;
+					return (item.selected = false);
 				}
 			});
-			items[targetKey].selected = true;
-		} else if (!items[targetKey].selected) {
-			items[targetKey].selected = true;
+			items[id].selected = true;
+		} else if (!items[id].selected) {
+			items[id].selected = true;
 		}
 
 		this.setState({
-			items
+			menuItems: items
 		});
 	};
 
 	handleSubItems = (e: MouseEvent<Element>) => {
 		e.preventDefault();
 
-		const { menuItems } = this.state;
+		const subItems = [ ...this.state.menuItems ];
 		const subTargetKey = e.currentTarget.id;
-		const subArray = menuItems.map((item) => item.dropdownItems && item.dropdownItems);
+		const subArray = subItems.map((item) => item.dropdownItems && item.dropdownItems);
 
-		const subSelected = subArray.map((item) => {
-			if (item) {
-				return item.map((subItem) => {
-					if (subItem.id === subTargetKey && subItem.selected === true) {
-						return (subItem.selected = false);
-					} else if (subItem.id === subTargetKey && subItem.selected === false) {
-						return (subItem.selected = true);
-					}
-				});
-			}
+		const subSelected = subArray.filter((item) => !!item).map((data) => {
+			return data!.map((el) => {
+				if (el.id === subTargetKey && el.selected === true) {
+					return { ...el, selected: false };
+				} else if (el.id === subTargetKey && el.selected === false) {
+					return { ...el, selected: true };
+				}
+				return el;
+			});
 		});
 
 		this.setState({
-			subSelected
+			menuItems: subItems
 		});
+
+		console.log(subSelected);
 	};
 
 	handleOnToggle = () => {
