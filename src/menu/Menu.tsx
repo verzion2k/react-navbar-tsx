@@ -41,7 +41,7 @@ export default class Menu extends Component<Props, ContextInterface> {
 								name={item.name}
 								isAuth={item.isAuth}
 								selected={item.selected}
-								isDropdown={item.isDropdown !== undefined}
+								isDropdown={item.isDropdown}
 								dropdownItems={item.dropdownItems}
 							/>
 						);
@@ -66,7 +66,7 @@ export default class Menu extends Component<Props, ContextInterface> {
 										id={item.id}
 										name={item.name}
 										isAuth={item.isAuth}
-										login={item.login !== undefined}
+										login={item.login}
 										selected={item.selected}
 									/>
 								</React.Fragment>

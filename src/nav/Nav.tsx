@@ -275,8 +275,11 @@ export default class Nav extends Component<Props, State> {
 			items[id].selected = false;
 		} else if (!items[id].selected && selectedItems.length > 0) {
 			selectedItems.map((item) => {
-				if (item.isAuth === false && item.dropdownItems) {
-					item.dropdownItems.map((subItem) => (subItem.selected = false));
+				console.log(item);
+				if (!item.isAuth && item.dropdownItems) {
+					item.dropdownItems.map(
+						(subItem) => (subItem.selected ? (subItem.selected = false) : subItem.selected)
+					);
 					return (item.selected = false);
 				} else {
 					return (item.selected = false);
@@ -295,18 +298,17 @@ export default class Nav extends Component<Props, State> {
 	handleSubItems = (e: MouseEvent<Element>) => {
 		e.preventDefault();
 
-		const subItems = [ ...this.state.menuItems ];
-		const { id }: { id: any } = e.currentTarget;
-		subItems.map((item) => item.dropdownItems && item.dropdownItems).filter((item) => !!item).map((data) => {
-			return data!.map((el) => {
-				if (el.id === id && el.selected === true) {
-					return (el.selected = false);
-				} else if (el.id === id && el.selected === false) {
-					return (el.selected = true);
-				}
-				return el;
-			});
-		});
+		const { menuItems } = this.state;
+		const { id }: { id: string } = e.currentTarget;
+		const subItems = menuItems.map((item) => ({
+			...item,
+			dropdownItems: item.dropdownItems
+				? item.dropdownItems.map((data) => ({
+						...data,
+						selected: data.id === id ? !data.selected : data.selected
+					}))
+				: undefined
+		}));
 
 		this.setState({
 			menuItems: subItems

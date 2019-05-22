@@ -54,7 +54,7 @@ export default class MenuItem extends Component<MenuInterface, ContextInterface>
 					{isDropdown && <Icon />}
 				</div>
 				<ul className="menu__item__list">
-					{isAuth && selected && <Input login={login !== undefined} />}
+					{isAuth && selected && login !== undefined && <Input login={login} />}
 					{selected &&
 						dropdownItems !== undefined &&
 						dropdownItems.map((item) => {
