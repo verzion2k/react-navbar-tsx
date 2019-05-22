@@ -5,10 +5,39 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserTie, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import MenuContext from '../menu_context/MenuContext';
+import { bool } from 'prop-types';
 
 library.add(faUserTie);
 library.add(faPencilAlt);
-export default class Menu extends Component {
+
+interface MenuInterface {
+	menuItems: MenuInterfaceProps[];
+}
+
+interface MenuInterfaceProps {
+	id: string;
+	name: string;
+	isDropdown: boolean;
+	isAuth: boolean;
+	login?: boolean;
+	selected: boolean;
+	dropdownItems?: DropdownItemProps[];
+}
+
+interface DropdownItemProps {
+	id: string;
+	name: string;
+	selected: boolean;
+	isDropdown: boolean;
+	subItems?: SubItemProps[];
+}
+
+interface SubItemProps {
+	id: string;
+	name: string;
+}
+
+export default class Menu extends Component<MenuInterface> {
 	render() {
 		const { menuItems } = this.props;
 		const { width } = this.context;
@@ -33,7 +62,7 @@ export default class Menu extends Component {
 								name={item.name}
 								selected={item.selected}
 								isDropdown={item.isDropdown}
-								dropdownItems={item.dropdownItems}
+								dropdownItems={item.dropdownItems || []}
 							/>
 						);
 					})}

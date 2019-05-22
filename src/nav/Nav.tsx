@@ -13,11 +13,12 @@ const FadeInAnimation = styled.div`animation: 1s ${keyframes`${bounceInDown}`};`
 
 library.add(faBars, faFacebook, faTwitter);
 
+interface Props {}
 interface NavInterface {
 	toggleMenu: boolean;
 	width: number;
-	handleDropdown(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
-	handleSubItems(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
+	handleDropdown: MouseEvent;
+	handleSubItems: MouseEvent;
 	menuItems: MenuItemState[];
 }
 
@@ -44,8 +45,8 @@ interface SubItemState {
 	name: string;
 }
 
-export default class Nav extends Component<{}, NavInterface> {
-	constructor(props: NavInterface) {
+export default class Nav extends Component<Props, NavInterface> {
+	constructor(props: Props) {
 		super(props);
 
 		this.state = {
@@ -264,6 +265,7 @@ export default class Nav extends Component<{}, NavInterface> {
 					name: 'BEJELNTKEZES',
 					isAuth: true,
 					login: true,
+					dropdownItems: [],
 					selected: false
 				},
 				{
@@ -271,6 +273,7 @@ export default class Nav extends Component<{}, NavInterface> {
 					name: 'REGISZTRACIO',
 					isAuth: true,
 					selected: false,
+					dropdownItems: [],
 					login: false
 				}
 			]
@@ -289,31 +292,31 @@ export default class Nav extends Component<{}, NavInterface> {
 		this.setState({ width: window.innerWidth });
 	};
 
-	handleDropdown = (e: MouseEvent<HTMLLIElement | HTMLAnchorElement>) => {
+	handleDropdown = (e: React.MouseEvent<HTMLLIElement | HTMLAnchorElement>) => {
 		e.preventDefault();
 
 		const items = [ ...this.state.menuItems ];
-		const targetKey = e.currentTarget.id;
+		const { id }: { id: any } = e.currentTarget;
 		const selectedItems = items.filter((item) => item.selected === true);
 
-		if (items[targetKey].selected) {
-			items[targetKey].selected = false;
-		} else if (!items[targetKey].selected && selectedItems.length > 0) {
+		if (items[id].selected) {
+			items[id].selected = false;
+		} else if (!items[id].selected && selectedItems.length > 0) {
 			selectedItems.map((item) => {
-				if (item.isAuth === false) {
+				if (item.isAuth === false && item.dropdownItems) {
 					item.dropdownItems.map((subItem) => (subItem.selected = false));
 					item.selected = false;
 				} else {
 					item.selected = false;
 				}
 			});
-			items[targetKey].selected = true;
-		} else if (!items[targetKey].selected) {
-			items[targetKey].selected = true;
+			items[id].selected = true;
+		} else if (!items[id].selected) {
+			items[id].selected = true;
 		}
 
 		this.setState({
-			items
+			menuItems: items
 		});
 	};
 
@@ -324,21 +327,19 @@ export default class Nav extends Component<{}, NavInterface> {
 		const subTargetKey = e.currentTarget.id;
 		const subArray = subItems.map((item) => item.dropdownItems && item.dropdownItems);
 
-		const subSelected = subArray.map((item) => {
-			if (item) {
-				return item.map((subItem) => {
-					if (subItem.id === subTargetKey && subItem.selected === true) {
-						return (subItem.selected = false);
-					} else if (subItem.id === subTargetKey && subItem.selected === false) {
-						return (subItem.selected = true);
-					}
-				});
-			}
+		const subSelected = subArray.filter((item) => !!item).map((item) => {
+			return item!.map((subItem) => {
+				if (subItem.id === subTargetKey && subItem.selected === true) {
+					return { ...subItem, selected: false };
+				} else if (subItem.id === subTargetKey && subItem.selected === false) {
+					return { ...subItem, selected: true };
+				} else {
+					return subItem;
+				}
+			});
 		});
 
-		this.setState({
-			subSelected
-		});
+		console.log(subSelected);
 	};
 
 	handleOnToggle = () => {

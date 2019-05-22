@@ -3,6 +3,7 @@ import './scss/MenuItem.scss';
 import Icon from '../icon/Icon';
 import Input from '../input/Input';
 import MenuContext from '../menu_context/MenuContext';
+import { string } from 'prop-types';
 
 interface MenuItemInterface {
 	isDropdown: boolean;
@@ -10,6 +11,8 @@ interface MenuItemInterface {
 	name: string;
 	dropdownItems: DropdownItemProps[];
 	login: boolean;
+	onMouseEnter: MouseEvent;
+	onMouseLeave: MouseEvent;
 	id: string;
 	selected: boolean;
 }
@@ -28,12 +31,12 @@ interface SubItemProps {
 }
 
 interface ContextInterface {
-	handleDropdown(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
-	handleSubItems(e: MouseEvent<HTMLAnchorElement | HTMLLIElement>): void;
+	handleDropdown(e: React.MouseEvent<HTMLLIElement | HTMLAnchorElement>): any;
+	handleSubItems(e: React.MouseEvent<HTMLLIElement | HTMLAnchorElement>): any;
 	width: number;
 }
 
-export default class MenuItem extends Component<MenuItemInterface, ContextInterface> {
+export default class MenuItem extends Component<MenuItemInterface> {
 	render() {
 		const { isDropdown, isAuth, name, dropdownItems, login, id, selected } = this.props;
 		const { handleDropdown, handleSubItems, width } = this.context;
