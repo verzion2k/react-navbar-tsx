@@ -282,7 +282,7 @@ export default class Nav extends Component<Props, State> {
 						selected: (subItem.selected = false)
 					}))
 			}));
-			!items[id].selected ? (items[id].selected = true) : (items[id].selected = false);
+			items[id].selected ? (items[id].selected = false) : (items[id].selected = true);
 		} else if (items[id].selected) {
 			items[id].selected = false;
 		} else if (!items[id].selected) {

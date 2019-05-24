@@ -5,6 +5,13 @@
 		font-size: 13px;
 		font-weight: 400;
 		cursor: pointer;
+		border: none;
+		background-color: transparent;
+	}
+
+	&__link:focus,
+	&__link:active {
+		outline: none;
 	}
 
 	&__icon {

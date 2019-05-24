@@ -43,14 +43,14 @@ export default class MenuItem extends Component<MenuInterface, ContextInterface>
 				selected={selected}
 			>
 				<div className={isAuth ? 'menu__item__wrapper--auth' : 'menu__item__wrapper'}>
-					<a
+					<button
 						className="menu__link"
 						onClick={!isMobile && isAuth ? handleDropdown : isMobile ? handleDropdown : undefined}
 						id={id}
 						selected={selected}
 					>
 						{name}
-					</a>
+					</button>
 					{isDropdown && <Icon />}
 				</div>
 				<ul className="menu__item__list">
@@ -73,14 +73,14 @@ export default class MenuItem extends Component<MenuInterface, ContextInterface>
 									selected={item.selected}
 									id={item.id}
 								>
-									<a
+									<button
 										className="menu__link"
 										onClick={item.isDropdown && isMobile ? handleSubItems : undefined}
 										selected={item.selected}
 										id={item.id}
 									>
 										{item.name}
-									</a>
+									</button>
 									{item.isDropdown && <Icon />}
 									{item.selected &&
 									item.isDropdown && (
